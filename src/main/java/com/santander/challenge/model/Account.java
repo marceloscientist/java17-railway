@@ -14,9 +14,9 @@ public record Account(
         String number,
         String agency,
 
-        @Column(scale = 13, precision = 2)
+        @Column(precision = 13, scale = 2)
         BigDecimal balance,
-        @Column(name = "additional_limit",scale = 13, precision = 2)
+        @Column(name = "additional_limit",precision = 13, scale = 2)
         BigDecimal limit) {
 
     // Construtor sem argumentos para JPA
