@@ -1,0 +1,26 @@
+## Single App Bank only for studies purpose
+
+```mermaid
+classDiagram
+    class User {
+        - String name
+        - Account account
+        - List~Feature~ features
+    }
+
+    class Account {
+        - String number
+        - String agency
+        - String type
+        - float balance
+        - float limit
+    }
+
+    class Feature {
+        - String icon
+        - String description
+    }
+
+    User *-- Account
+    User *-- Feature
+```
