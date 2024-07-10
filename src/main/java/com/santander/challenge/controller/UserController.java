@@ -2,6 +2,7 @@ package com.santander.challenge.controller;
 
 import com.santander.challenge.model.User;
 import com.santander.challenge.service.IUserService;
+import com.santander.challenge.service.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,28 +11,26 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/users")
-
 public class UserController {
 
-    private final IUserService userService;
+    private final UserServiceImpl userService;
 
-    public UserController(IUserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<User> buscarUsuarioPorId(@PathVariable("id") Long id) {
-        User user = this.userService.findById(id);
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        var user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<User> criarUsuarioPorId(@RequestBody User userToCreate) {
-        User userCreated = this.userService.create(userToCreate);
+    @PostMapping
+    public ResponseEntity<User> create(@RequestBody User userToCreate) {
+        var userCreated = userService.create(userToCreate);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(userCreated.id())
+                .buildAndExpand(userCreated.getId())
                 .toUri();
         return ResponseEntity.created(location).body(userCreated);
     }

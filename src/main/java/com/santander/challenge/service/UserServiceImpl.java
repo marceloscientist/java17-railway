@@ -17,19 +17,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User findById(Long id) {
-        return this.userRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
     public User create(User userToCreate) {
-        if(userToCreate.id() != null && this.userRepository.existsById(userToCreate.id())) {
-            throw new IllegalArgumentException("This ID has already been used");
+        if (userRepository.existsByAccountNumber(userToCreate.getAccount().getNumber())) {
+            throw new IllegalArgumentException("This Account number already exists.");
         }
-
-        if(this.userRepository.existsByAccountNumber(userToCreate.account().number())) {
-            throw new IllegalArgumentException("This Account Number has already been used");
-        }
-
-        return this.userRepository.save(userToCreate);
+        return userRepository.save(userToCreate);
     }
 }

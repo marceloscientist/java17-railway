@@ -3,15 +3,40 @@ package com.santander.challenge.model;
 import jakarta.persistence.*;
 
 @Entity(name = "features")
-public record Feature(
+public class Feature {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        Long id,
-        String icon,
-        String description) {
+        private Long id;
+        private String icon;
+        private String description;
 
-    // Construtor sem argumentos para JPA
-    public Feature() {
-        this(null, null, null);
-    }
+        // Default constructor
+        public Feature() {
+        }
+
+
+        // Getters and Setters
+        public Long getId() {
+                return id;
+        }
+
+        public void setId(Long id) {
+                this.id = id;
+        }
+
+        public String getIcon() {
+                return icon;
+        }
+
+        public void setIcon(String icon) {
+                this.icon = icon;
+        }
+
+        public String getDescription() {
+                return description;
+        }
+
+        public void setDescription(String description) {
+                this.description = description;
+        }
 }

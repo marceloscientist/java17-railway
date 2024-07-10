@@ -5,18 +5,53 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity(name = "users")
-public record User(
+public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        Long id,
-        String name,
+        private Long id;
+        private String name;
 
         @OneToOne(cascade = CascadeType.ALL)
-        Account account,
-        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-        List<Feature> features) {
+        private Account account;
 
+        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+        private List<Feature> features;
+
+        // Default constructor
         public User() {
-            this(null, null, null, null);
+        }
+
+
+        // Getters and Setters
+        public Long getId() {
+                return id;
+        }
+
+        public void setId(Long id) {
+                this.id = id;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public void setName(String name) {
+                this.name = name;
+        }
+
+        public Account getAccount() {
+                return account;
+        }
+
+        public void setAccount(Account account) {
+                this.account = account;
+        }
+
+        public List<Feature> getFeatures() {
+                return features;
+        }
+
+        public void setFeatures(List<Feature> features) {
+                this.features = features;
         }
 }
